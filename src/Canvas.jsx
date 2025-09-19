@@ -1,4 +1,3 @@
-import { createRoot } from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
 import './App.css'
 
@@ -18,5 +17,4 @@ function App() {
   )
 }
 
-createRoot(document.getElementById('root')).render(<App />)
 export default App
