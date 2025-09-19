@@ -1,20 +1,18 @@
-import { Canvas } from '@react-three/fiber'
+import { useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useGLTF, useTexture, AccumulativeShadows, RandomizedLight, Decal, Enviroment, Center } from '@react-three/drei'
+import { state } from './store.js'
 import './App.css'
 
-function App() {
-
-  return (
-    <div id='canvas-container'>
-      <Canvas>
-        <mesh>
-          <boxGeometry args={[2,2,2]}/>
-          <meshStandardMaterial />
-        </mesh>
-        <ambientLight intensity={0.1}/>
-        <directionalLight position={[0,0,5]} color="red"/>
-      </Canvas>
-    </div>
-  )
-}
-
-export default App
+export const App = ({ position = [0, 0, 2.5], fov = 25 }) => (
+  <Canvas shadows camera={{ position, fov }} gl={{ preserveDrawingBuffer: true }} eventSource={document.getElementById('root')} eventPrefix='client'>
+    <ambientLight intensity={0.5 * Math.PI} />
+    <Enviroment files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/potsdamer_platz_1k.hdr"/>
+    <CameraRig>
+      <Backdrop />
+      <Center>
+        <Shirt/>
+      </Center>
+    </CameraRig>
+  </Canvas>
+)
